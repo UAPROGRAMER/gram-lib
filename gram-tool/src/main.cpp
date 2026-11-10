@@ -144,7 +144,8 @@ int main(int argc, char** argv) {
   std::string mode(argv[1]);
 
   try {
-    if (mode == "--help" || mode == "-h");
+    if (mode == "--help" || mode == "-h")
+      help();
     else if (mode == "--train" || mode == "-t") {
       if (argc < 4) return 1;
 
