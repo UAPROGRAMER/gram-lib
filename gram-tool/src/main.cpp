@@ -18,6 +18,20 @@ using ios = std::ios;
 #define CONTEXT (10)
 #define TOKENS (78)
 
+void help() {
+  std::cout << "Usage:\n";
+  std::cout << "\tgramtool [-h | --help]\n";
+  std::cout << "\tgramtool [-t | --train] <trainer> <data>\n";
+  std::cout << "\tgramtool [-b | --tobrain] <trainer> <brain>\n";
+  std::cout << "\tgramtool [-p | --predict] <brain> <file> <amount>\n";
+  std::cout << "\tgramtool [-T | --printtrainer] <trainer> <file>\n";
+  std::cout << "\tgramtool [-B | --printbrain] <brain> <file>\n\n";
+  std::cout << "Info:\n";
+  std::cout << "\t<trainer> | <brain> | <file> - path to file.\n";
+  std::cout << "\t<data>                       - path to file or directory.\n";
+  std::cout << "\t<amount>                     - u64 value.\n";
+}
+
 void train(std::string_view trainer_path, std::string_view training_data) {
   if (!fs::exists(training_data)) return;
 
@@ -130,23 +144,24 @@ int main(int argc, char** argv) {
   std::string mode(argv[1]);
 
   try {
-    if (mode == "train") {
+    if (mode == "--help" || mode == "-h");
+    else if (mode == "--train" || mode == "-t") {
       if (argc < 4) return 1;
 
       train(argv[2], argv[3]);
-    } else if (mode == "tobrain") {
+    } else if (mode == "--tobrain" || mode == "-b") {
       if (argc < 4) return 1;
 
       tobrain(argv[2], argv[3]);
-    } else if (mode == "predict") {
+    } else if (mode == "--predict" || mode == "-p") {
       if (argc < 5) return 1;
 
       predict(argv[2], argv[3], std::stoull(argv[4]));
-    } else if (mode == "printtrainer") {
+    } else if (mode == "--printtrainer" || mode == "-T") {
       if (argc < 4) return 1;
 
       printtrainer(argv[2], argv[3]);
-    } else if (mode == "printbrain") {
+    } else if (mode == "--printbrain" || mode == "-B") {
       if (argc < 4) return 1;
 
       printbrain(argv[2], argv[3]);
