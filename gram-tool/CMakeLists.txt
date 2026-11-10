@@ -17,7 +17,14 @@ file(GLOB source CONFIGURE_DEPENDS
 
 add_executable(GramTool ${source})
 
-target_link_options(GramTool PRIVATE "-static")
+if (WIN32)
+    set_property(TARGET GramTool
+        PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+elseif (UNIX AND NOT APPLE)
+    target_link_options(GramTool PRIVATE "-static")
+else ()
+    message(FATAL_ERROR "CMake setup only for windows and linux.")
+endif ()
 
 target_link_libraries(GramTool PRIVATE
     GramLib
