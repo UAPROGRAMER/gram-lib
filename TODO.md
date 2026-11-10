@@ -6,3 +6,4 @@
 - add training weights, when some data is more valuable for training than other
 - make trainer use u64 for counting
 - make brain use f16 for probability
+- optimize trainer and brain savefiles by changing format a little
