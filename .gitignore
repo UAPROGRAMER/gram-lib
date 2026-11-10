@@ -1,7 +1,7 @@
 .vscode
 .cache
 build
-gramtool/data
-gramtool/dest
-gramtool/training_data
-gramtool/scripts/clean/__pycache__
+gram-tool/data
+gram-tool/dest
+gram-tool/training_data
+gram-tool/scripts/clean/__pycache__
