@@ -6,6 +6,7 @@
 #include <gram_lib/utils.hpp>
 #include <ios>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -139,35 +140,35 @@ void printbrain(std::string_view brain_path, std::string_view text_file) {
 }
 
 int main(int argc, char** argv) {
-  if (argc < 2) return 1;
-
-  std::string mode(argv[1]);
-
   try {
+    if (argc < 2) throw std::runtime_error("Not enough arguments.");
+
+    std::string mode(argv[1]);
+
     if (mode == "--help" || mode == "-h")
       help();
     else if (mode == "--train" || mode == "-t") {
-      if (argc < 4) return 1;
+      if (argc < 4) throw std::runtime_error("Not enough arguments.");
 
       train(argv[2], argv[3]);
     } else if (mode == "--tobrain" || mode == "-b") {
-      if (argc < 4) return 1;
+      if (argc < 4) throw std::runtime_error("Not enough arguments.");
 
       tobrain(argv[2], argv[3]);
     } else if (mode == "--predict" || mode == "-p") {
-      if (argc < 5) return 1;
+      if (argc < 5) throw std::runtime_error("Not enough arguments.");
 
       predict(argv[2], argv[3], std::stoull(argv[4]));
     } else if (mode == "--printtrainer" || mode == "-T") {
-      if (argc < 4) return 1;
+      if (argc < 4) throw std::runtime_error("Not enough arguments.");
 
       printtrainer(argv[2], argv[3]);
     } else if (mode == "--printbrain" || mode == "-B") {
-      if (argc < 4) return 1;
+      if (argc < 4) throw std::runtime_error("Not enough arguments.");
 
       printbrain(argv[2], argv[3]);
     } else
-      return 1;
+      throw std::runtime_error("Bad mode.");
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
   }
